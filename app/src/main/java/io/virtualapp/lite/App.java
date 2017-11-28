@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.lody.virtual.client.core.VirtualCore;
+import com.lody.virtual.client.env.SpecialComponentList;
 import com.lody.virtual.client.stub.VASettings;
 
 import io.virtualapp.lite.delegate.MyAppRequestListener;

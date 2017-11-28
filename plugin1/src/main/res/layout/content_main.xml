@@ -20,17 +20,26 @@
             android:layout_height="100dp"
             />
 
-        <Button
-            android:id="@+id/test_service"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Test Service"/>
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/test_notification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Test Notification"/>
+            <Button
+                android:id="@+id/test_service"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Test Service"/>
+
+            <Button
+                android:id="@+id/test_notification"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Test Notification"/>
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/test_camera"
@@ -38,10 +47,32 @@
             android:layout_height="wrap_content"
             android:text="Test Camera"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/tv_sms"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="10010@发送内容"/>
+
+            <Button
+                android:id="@+id/tv_sendcode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="发送短信"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tv_contacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minLines="5"/>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

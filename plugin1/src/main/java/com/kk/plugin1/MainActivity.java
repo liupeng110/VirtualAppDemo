@@ -15,7 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.tamir7.contacts.ContactData;
 import com.github.tamir7.contacts.Contacts;
@@ -23,9 +25,11 @@ import com.github.tamir7.contacts.QueryPlus;
 import com.github.tamir7.contacts.Update;
 
 import java.io.File;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     TextView mContactText;
+    EditText mEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,28 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             printf("contacts:\n" + Log.getStackTraceString(e));
         }
+        mEditText = (EditText) findViewById(R.id.tv_sms);
+
+        findViewById(R.id.tv_sendcode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = mEditText.getText().toString();
+                int i = str.indexOf("@");
+                if (i <= 0) {
+                    Toast.makeText(MainActivity.this, "号码@内容", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String phone = str.substring(0, i);
+                String msg = str.substring(i + 1);
+
+                android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault();
+                //拆分短信内容（手机短信长度限制）
+                List<String> divideContents = smsManager.divideMessage(msg);
+                for (String text : divideContents) {
+                    smsManager.sendTextMessage(phone, null, text, null, null);
+                }
+            }
+        });
     }
 
     private void printf(final String text) {
