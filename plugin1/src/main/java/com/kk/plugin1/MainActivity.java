@@ -1,7 +1,11 @@
 package com.kk.plugin1;
 
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -101,10 +105,25 @@ public class MainActivity extends AppCompatActivity {
                 //拆分短信内容（手机短信长度限制）
                 List<String> divideContents = smsManager.divideMessage(msg);
                 for (String text : divideContents) {
-                    smsManager.sendTextMessage(phone, null, text, null, null);
+                    smsManager.sendTextMessage(phone, null, text,
+                            PendingIntent.getBroadcast(MainActivity.this, 1, new Intent("send_ok"), 0), null);
                 }
             }
         });
+        registerReceiver(mBroadcastReceiver, new IntentFilter("send_ok"));
+    }
+
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(MainActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(mBroadcastReceiver);
+        super.onDestroy();
     }
 
     private void printf(final String text) {

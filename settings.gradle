@@ -1,3 +1,1 @@
-include ':app', ':libbridge', ':plugin1'
-include ':lib'
-project(':lib').projectDir = new File(settingsDir, "VirtualApp/VirtualApp/lib")
+include ':plugin1',':libbridge'
