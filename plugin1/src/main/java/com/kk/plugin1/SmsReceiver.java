@@ -13,6 +13,7 @@ import java.util.Date;
 public class SmsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.e("kk", "SmsReceiver:" + intent);
         Bundle bundle = intent.getExtras();
         SmsMessage msg = null;
         if (null != bundle) {
